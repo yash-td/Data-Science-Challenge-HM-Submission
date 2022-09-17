@@ -1,0 +1,7 @@
+,Classification Model,Accuracy Score
+0,OneVsRestClassifier(estimator=KNeighborsClassifier(n_neighbors=3)),38.60%
+1,"OneVsRestClassifier(estimator=SVC(C=1, kernel='linear'))",52.30%
+2,OneVsRestClassifier(estimator=SVC(C=1)),49.10%
+3,OneVsRestClassifier(estimator=MultinomialNB()),25.30%
+4,OneVsRestClassifier(estimator=DecisionTreeClassifier()),33.40%
+5,OneVsRestClassifier(estimator=RandomForestClassifier(n_estimators=500)),34.20%
