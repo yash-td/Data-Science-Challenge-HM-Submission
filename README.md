@@ -1,6 +1,6 @@
 # Data-Science-Challenge-HM-Submission
 
-Clone the repository by using the command "git clone" followed by the repository link.
+Clone the repository by using the command "git clone https://github.com/yash-td/Data-Science-Challenge-HM-Submission.git".
 Follow these commands to run the script: 
 
 1) Open the temrinal or command prompt and type "cd Data-Science-Challenge-HM-Submission" and press enter.
