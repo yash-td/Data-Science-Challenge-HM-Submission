@@ -12,14 +12,17 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.pipeline import Pipeline
-from sklearn.svm import SVC
+from sklearn.svm import LinearSVC
+from skmultilearn.problem_transform import LabelPowerset
 from datasets import load_dataset
 
+from sklearn.metrics import multilabel_confusion_matrix
+from sklearn.metrics import classification_report
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import model_selection, naive_bayes
 from sklearn.multiclass import OneVsRestClassifier
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import ConfusionMatrixDisplay
 
 '''
 importing the helper functions from the utils.py file
@@ -79,12 +82,11 @@ test_y_enc = MultiLabelBinarizer().transform(test_y)
 Creating a pipeline for testing 6 text classification models and reporting their accuracies.
 '''
 classification_models = [
-                         OneVsRestClassifier(KNeighborsClassifier(n_neighbors=3)),
-                         OneVsRestClassifier(SVC(kernel = "linear" ,C=1)),
-                         OneVsRestClassifier(SVC(kernel='rbf', C=1)),
+                         OneVsRestClassifier(LinearSVC(), n_jobs=-1),
+                         RandomForestClassifier(n_jobs=-1),
                          OneVsRestClassifier(naive_bayes.MultinomialNB()),
                          OneVsRestClassifier(DecisionTreeClassifier()),
-                         OneVsRestClassifier(RandomForestClassifier(n_estimators=500)),
+                         LabelPowerset(LinearSVC())
                          ]
 
 model_scores = []
@@ -103,3 +105,15 @@ for model in classification_models:
 df_model_scores = pd.DataFrame(model_scores,columns=['Classification Model','Accuracy Score'])
 df_model_scores.sort_values(by='Accuracy Score',axis=0,ascending=False)
 df_model_scores.to_csv('results.csv')
+
+classifier = LabelPowerset(LinearSVC())
+from sklearn.metrics import accuracy_score
+classifier.fit(vectors_train,train_y_enc)
+predictions = classifier.predict(vectors_test)
+print('Accuracy of the Label Powerset model with Linear SVC is',accuracy_score(predictions, test_y_enc)*100)
+print(classification_report(test_y_enc, predictions))
+
+classification_matrix = multilabel_confusion_matrix(test_y_enc, predictions)
+for i in range(len(classification_matrix)):
+    disp = ConfusionMatrixDisplay(confusion_matrix=classification_matrix[i],display_labels=[i,f'Not {i}'])
+    disp.plot()

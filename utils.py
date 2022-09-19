@@ -4,7 +4,8 @@ importing necessary packages
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
-
+from nltk.stem.porter import *
+from nltk.tokenize import RegexpTokenizer
 
 '''
 creating a pre-process funciton which will take the data, perform the following operations and return features and labels
@@ -19,16 +20,20 @@ separately:
 All these operations are performed using the NLTK package in python.
 '''
 def pre_process(data):
+    tokenizer = RegexpTokenizer(r'\w+')
     lemmatizer = WordNetLemmatizer()
+    stemmer = PorterStemmer()
     new_data = []
     new_labels = []
     for i in range(len(data)):
-        tokenized = [word_tokenize(entry.lower()) for entry in data[i]['text'] if entry not in stopwords.words('english')]
+        tokenized = [tokenizer.tokenize(entry.lower()) for entry in data[i]['text'] if entry not in stopwords.words('english')]
         lemmatized = [[lemmatizer.lemmatize(token) for token in sent] for sent in tokenized]
+        stemming = [[stemmer.stem(token) for token in sent] for sent in lemmatized]
         new_data.append(lemmatized)
-        # new_data.append([word_tokenize(entry.lower()) for entry in data[i]['text'] if entry not in stopwords.words('english')])
         new_labels.append(data[i]['labels'])
+    print('Lower Case + Tokenization + Stop Words Remowal + Only Alphanumeric (Removing Punctuation) + Lemmatization',lemmatized)
     return new_data, new_labels
+
 
 
 '''
