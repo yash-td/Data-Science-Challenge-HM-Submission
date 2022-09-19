@@ -73,7 +73,7 @@ As we have multiple labels for some documents in our problem we need to use a mu
 our labels into sequences of ones and zeros (similar to that of one hot encoding)
 '''
 train_y_enc = MultiLabelBinarizer().fit_transform(train_y)
-test_y_enc = MultiLabelBinarizer().fit_transform(test_y)
+test_y_enc = MultiLabelBinarizer().transform(test_y)
 
 '''
 Creating a pipeline for testing 6 text classification models and reporting their accuracies.

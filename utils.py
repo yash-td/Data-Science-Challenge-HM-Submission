@@ -12,8 +12,9 @@ separately:
 
 1) Convert everything to lower case
 2) Remove Stopwords
-3) Tokenize the sentences
+3) Tokenize the sentences (Also Removing punctuatios and non alpha numeric characters)
 4) Lemmatize the words
+5) Stemming the words
 
 All these operations are performed using the NLTK package in python.
 '''
