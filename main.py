@@ -1,12 +1,8 @@
 '''
-
+Text classification task: Classifying cases as per the violation types of ECHR articles.
+Train Dataset has 9000 cases and the test dataset has 1000 cases. The goal is to see which articles
+(can be one, none or many) are violated in the 1000 test cases.
 '''
-
-
-
-
-
-
 
 
 '''
