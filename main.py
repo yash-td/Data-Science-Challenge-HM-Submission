@@ -23,7 +23,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import MultinomialNB
 from sklearn import model_selection, naive_bayes
 from sklearn.multiclass import OneVsRestClassifier
-from sklearn.metrics import ConfusionMatrixDisplay
+from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
 from sklearn.model_selection import GridSearchCV
 '''
 importing the helper functions from the utils.py file
@@ -76,9 +76,12 @@ vectors_test = tfidf.transform(test_X_2d)
 '''
 As we have multiple labels for some documents in our problem we need to use a multi label binarizer which will convert
 our labels into sequences of ones and zeros (similar to that of one hot encoding)
+There are 10 unique labels in the dataset (0,1,2,3,4,5,6,7,8,9)
 '''
-train_y_enc = MultiLabelBinarizer().fit_transform(train_y)
-test_y_enc = MultiLabelBinarizer().transform(test_y)
+
+binarizer = MultiLabelBinarizer()
+train_y_enc = binarizer.fit_transform(train_y)
+test_y_enc = binarizer.transform(test_y)
 
 '''
 Creating a pipeline for testing 6 text classification models and reporting their accuracies.
@@ -146,4 +149,6 @@ classification_matrix = multilabel_confusion_matrix(test_y_enc, predictions)
 for i in range(len(classification_matrix)):
     disp = ConfusionMatrixDisplay(confusion_matrix=classification_matrix[i],display_labels=[i,f'Not {i}'])
     disp.plot()
+    print('Class',i)
+    confusion_metrics(classification_matrix[i])
 
