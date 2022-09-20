@@ -18,6 +18,9 @@ Windows: python main.py
 
 4) After about 20mins of running a csv file named 'results.csv' will be generated with the text classification accuracy scores for 5 different models. 
 
+5) After about 20mins of running a csv file named 'results.csv' will be generated with the text classification accuracy scores for 6 different models. 
+
+
 --------------------------------------------------------------------------------------------------------------------------
 
 Discussion:- 
@@ -26,4 +29,3 @@ This was a task of multilabel classification where a classifier model was traine
 
 It may seem that the accuracies of individual class prediction is very high but for the entire classifier is low. This is because there are a lot of cases where more tha one article is violated. Hence for the classifier to count the entire instance as True Positive all the violations need to match. The indivual accuries from the confusion matrix show that how well the violations of individual class is predicted. For example:- The classifier predicts if the article 2 is violated or not wiht a 93% accuracy and a f1 score of 0.87. The overall accuracy of the classifier is 56% with a weighted average f1 score of 0.69. 
 
-5) After about 20mins of running a csv file named 'results.csv' will be generated with the text classification accuracy scores for 6 different models. 
