@@ -17,8 +17,3 @@ MacOS: python3 main.py
 Windows: python main.py
 
 5) After about 20mins of running a csv file named 'results.csv' will be generated with the text classification accuracy scores for 6 different models. 
-
-<<<<<<< HEAD
-=======
-The python script is only for implementation purposes. A jupyter notebook with the same functionality but a better visualisation is included in the repository. Written description and somewhere graphical representations are also provided in the jupyter notebook for a better explanation. 
->>>>>>> 061495045424d4a878f0e0cfacc94459eb2c82f2
