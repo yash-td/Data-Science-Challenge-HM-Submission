@@ -20,10 +20,11 @@ from sklearn.metrics import multilabel_confusion_matrix
 from sklearn.metrics import classification_report
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.naive_bayes import MultinomialNB
 from sklearn import model_selection, naive_bayes
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.metrics import ConfusionMatrixDisplay
-
+from sklearn.model_selection import GridSearchCV
 '''
 importing the helper functions from the utils.py file
 '''
@@ -51,6 +52,7 @@ Creating a corpus for the train and the test set to crearte a vocabulary in orde
 '''
 corpus_train  = create_corpus(train_X)
 corpus_test = create_corpus(test_X)
+total_corpus = corpus_train + corpus_test
 
 '''
 converting the 3 dimentional dataset obtained after tokenization, to a two dimensional set becasue we have 
@@ -67,7 +69,7 @@ scaled by its importance across all documents in our corpus, which mathematicall
 in the English language, and selects words that are more descriptive of our text.  
 '''
 tfidf = TfidfVectorizer(tokenizer=identity_tokenizer, stop_words='english', lowercase=False)
-tfidf.fit(corpus_train+corpus_test)
+tfidf.fit(total_corpus)
 vectors_train = tfidf.fit_transform(train_X_2d)
 vectors_test = tfidf.transform(test_X_2d)
 
@@ -106,6 +108,33 @@ df_model_scores = pd.DataFrame(model_scores,columns=['Classification Model','Acc
 df_model_scores.sort_values(by='Accuracy Score',axis=0,ascending=False)
 df_model_scores.to_csv('results.csv')
 
+# Performing a GridSearch for 3 different classifiers to be used with Label Powerset as the best accuracy was found with label 
+# powerset SVC. 
+parameters = [
+    {
+        'classifier': [MultinomialNB()],
+        'classifier__alpha': [0.7, 1.0],
+    },
+    {
+        'classifier': [RandomForestClassifier()],
+        'classifier__criterion': ['gini', 'entropy'],
+        'classifier__n_estimators': [10, 20, 50],
+    },
+
+    {
+        'classifier': [LinearSVC()],
+        'classifier__C':[1,10,100,1000],
+    },
+
+    
+]
+
+clf = GridSearchCV(LabelPowerset(), parameters, scoring='accuracy')
+clf.fit(vectors_train, train_y_enc)
+
+print (clf.best_params_, clf.best_score_)
+
+
 classifier = LabelPowerset(LinearSVC())
 from sklearn.metrics import accuracy_score
 classifier.fit(vectors_train,train_y_enc)
@@ -117,3 +146,4 @@ classification_matrix = multilabel_confusion_matrix(test_y_enc, predictions)
 for i in range(len(classification_matrix)):
     disp = ConfusionMatrixDisplay(confusion_matrix=classification_matrix[i],display_labels=[i,f'Not {i}'])
     disp.plot()
+
