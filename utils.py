@@ -36,16 +36,16 @@ def pre_process(data):
 
 
 
-'''
-This function is used to convert our entire training data (after the pre-processing) into a corpus of words
-'''
-def create_corpus(data):
-    corpus = []
-    for doc in data:
-        for sen in doc:
-            for word in sen:
-                corpus.append(word)
-    return corpus   
+# '''
+# This function is used to convert our entire training data (after the pre-processing) into a corpus of words
+# '''
+# def create_corpus(data):
+#     corpus = []
+#     for doc in data:
+#         for sen in doc:
+#             for word in sen:
+#                 corpus.append(word)
+#     return corpus   
 
 '''
 This funciton is written to covert the 3-dimensional data into 2 dimensional.
@@ -53,7 +53,7 @@ After pre-processing we have a list of lists of lists. But labels we have are th
 every document and not every sentence. Hence the desired format we need to train the model is a list of lists. Where one
 list is the entrie training data of size 9000 and the second list (list of list) is the documents inside the main list of 9000.
 '''
-def convert_2d(data):
+def create_corpus(data):
     lst2 = []
     for i in data:
         lst1 = []

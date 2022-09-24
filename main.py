@@ -47,19 +47,19 @@ Using the pre-process function created in the utils file, preparing the train an
 train_X, train_y  = pre_process(train) 
 test_X, test_y = pre_process(test)
 
-'''
-Creating a corpus for the train and the test set to crearte a vocabulary in order to use the Tfidf vectorizer.
-'''
-corpus_train  = create_corpus(train_X)
-corpus_test = create_corpus(test_X)
-total_corpus = corpus_train + corpus_test
+# '''
+# Creating a corpus for the train and the test set to crearte a vocabulary in order to use the Tfidf vectorizer.
+# '''
+# corpus_train  = create_corpus(train_X)
+# corpus_test = create_corpus(test_X)
+# total_corpus = corpus_train + corpus_test
 
 '''
 converting the 3 dimentional dataset obtained after tokenization, to a two dimensional set becasue we have 
 labels (None, 1 or more than 1) for each document and not each sentence.
 '''
-train_X_2d = convert_2d(train_X)
-test_X_2d = convert_2d(test_X)
+train_X_2d = create_corpus(train_X)
+test_X_2d = create_corpus(test_X)
 
 
 '''
@@ -69,7 +69,6 @@ scaled by its importance across all documents in our corpus, which mathematicall
 in the English language, and selects words that are more descriptive of our text.  
 '''
 tfidf = TfidfVectorizer(tokenizer=identity_tokenizer, stop_words='english', lowercase=False)
-tfidf.fit(total_corpus)
 vectors_train = tfidf.fit_transform(train_X_2d)
 vectors_test = tfidf.transform(test_X_2d)
 

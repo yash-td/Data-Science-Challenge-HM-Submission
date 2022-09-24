@@ -2,6 +2,9 @@
 
 The python script is only for implementation purposes. A jupyter notebook with the same functionality but a better visualisation is included in the repository. Written description and somewhere graphical representations are also provided in the jupyter notebook for a better explanation. 
 
+
+Steps to execute the python script:- 
+
 Clone the repository by using the command "git clone https://github.com/yash-td/Data-Science-Challenge-HM-Submission.git".
 Follow these commands to run the script: 
 
@@ -16,7 +19,7 @@ MacOS: python3 main.py
 
 Windows: python main.py
 
-4) After about 20mins of running a csv file named 'results.csv' will be generated with the text classification accuracy scores for 5 different models. 
+4) After about 25-30 mins of running, a csv file named 'results.csv' will be generated with the text classification accuracy scores for 5 different models. 
 
 5) After about 20mins of running a csv file named 'results.csv' will be generated with the text classification accuracy scores for 6 different models. 
 
